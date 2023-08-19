@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diccionario de Slang Panameño</title>
+</head>
+<body>
+    <h1>Diccionario de Slang Panameño</h1>
+
+    <h2>Agregar nueva palabra</h2>
+    <form action="{{ url_for('agregar_palabra') }}" method="post">
+        <label for="palabra">Palabra:</label>
+        <input type="text" name="palabra" required>
+        <label for="significado">Significado:</label>
+        <input type="text" name="significado" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h2>Lista de palabras</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Palabra</th>
+                <th>Significado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for palabra, significado in palabras %}
+                <tr>
+                    <td>{{ palabra }}</td>
+                    <td>{{ significado }}</td>
+                    <td>
+                        <form action="{{ url_for('editar_palabra') }}" method="post">
+                            <input type="hidden" name="palabra" value="{{ palabra }}">
+                            <input type="text" name="nuevo_significado" required>
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form action="{{ url_for('eliminar_palabra') }}" method="post">
+                            <input type="hidden" name="palabra" value="{{ palabra }}">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
