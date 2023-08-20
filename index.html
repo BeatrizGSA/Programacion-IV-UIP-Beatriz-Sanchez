@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Diccionario de Slang Panameño</title>
@@ -16,34 +16,34 @@
         <button type="submit">Agregar</button>
     </form>
 
+    <h2>Editar palabra existente</h2>
+    <form action="{{ url_for('editar_palabra') }}" method="post">
+        <label for="palabra">Palabra:</label>
+        <input type="text" name="palabra" required>
+        <label for="nuevo_significado">Nuevo significado:</label>
+        <input type="text" name="nuevo_significado" required>
+        <button type="submit">Editar</button>
+    </form>
+
+    <h2>Eliminar palabra existente</h2>
+    <form action="{{ url_for('eliminar_palabra') }}" method="post">
+        <label for="palabra">Palabra:</label>
+        <input type="text" name="palabra" required>
+        <button type="submit">Eliminar</button>
+    </form>
+
+    <h2>Buscar significado de palabra</h2>
+    <form action="{{ url_for('buscar_palabra') }}" method="post">
+        <label for="palabra">Palabra:</label>
+        <input type="text" name="palabra" required>
+        <button type="submit">Buscar</button>
+    </form>
+
     <h2>Lista de palabras</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Palabra</th>
-                <th>Significado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for palabra, significado in palabras %}
-                <tr>
-                    <td>{{ palabra }}</td>
-                    <td>{{ significado }}</td>
-                    <td>
-                        <form action="{{ url_for('editar_palabra') }}" method="post">
-                            <input type="hidden" name="palabra" value="{{ palabra }}">
-                            <input type="text" name="nuevo_significado" required>
-                            <button type="submit">Editar</button>
-                        </form>
-                        <form action="{{ url_for('eliminar_palabra') }}" method="post">
-                            <input type="hidden" name="palabra" value="{{ palabra }}">
-                            <button type="submit">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <ul>
+        {% for palabra, significado in palabras_significados %}
+            <li>{{ palabra }}: {{ significado }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
