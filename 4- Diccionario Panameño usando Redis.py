@@ -1,7 +1,7 @@
 import redis
 
-# Connect to the Redis database
-r = redis.Redis(host='localhost', port=6379, db=0)
+redis_url = "redis://default:LApzhSSk8YSwXIshipytd2PIEQutVyv5@redis-18733.c228.us-central1-1.gce.cloud.redislabs.com:18733"
+r = redis.from_url(redis_url)
 
 def agregar_palabra():
     palabra = input("Ingrese la nueva palabra: ")
