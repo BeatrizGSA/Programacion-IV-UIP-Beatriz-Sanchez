@@ -1,15 +1,18 @@
 from sqlalchemy import create_engine, Column, String
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-engine = create_engine('mysql+pymysql://root:1234@localhost:3306/panama_slang_mariadb')
+engine = create_engine('mysql+mysqlconnector://root:1234@localhost:3306/panama_slang_mariadb')
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
-session = Session()
 
 class PanamaSlang(Base):
     __tablename__ = 'panama_slang_mariadb'
     palabra = Column(String, primary_key=True)
     significado = Column(String)
+
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
 
 def agregar_palabra():
     palabra = input("Ingrese la nueva palabra: ")
